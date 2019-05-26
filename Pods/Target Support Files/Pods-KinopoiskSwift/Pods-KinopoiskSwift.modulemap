@@ -1,0 +1,6 @@
+framework module Pods_KinopoiskSwift {
+  umbrella header "Pods-KinopoiskSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

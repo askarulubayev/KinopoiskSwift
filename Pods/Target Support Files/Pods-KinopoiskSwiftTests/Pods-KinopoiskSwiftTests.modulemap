@@ -1,0 +1,6 @@
+framework module Pods_KinopoiskSwiftTests {
+  umbrella header "Pods-KinopoiskSwiftTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
