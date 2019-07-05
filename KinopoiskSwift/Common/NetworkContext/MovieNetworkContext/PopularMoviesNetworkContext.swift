@@ -7,7 +7,7 @@
 //
 
 class PopularMoviesNetworkContext: NetworkContext {
-    var route: TmdbEndPoint { return .getMoviesPopular }
+    var route: TmdbRoute { return .getMoviesPopular }
     var method: NetworkMethod { return .get }
     var parameters = [String: Any]()
     

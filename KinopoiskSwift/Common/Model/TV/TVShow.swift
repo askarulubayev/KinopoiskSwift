@@ -30,7 +30,7 @@ extension TVShow {
     }
     
     func getModelType() -> TmdbModelType {
-        return .tvShow
+        return .tv
     }
 }
 

@@ -7,17 +7,17 @@
 //
 
 enum TmdbPageableListType {
-    // tvShow
-    case airingTodayTVShows
-    case onTheAirTVShows
-    case popularTVShows
-    case topRatedTVShows
-    
     // movie
     case upcomingMovies
     case topRatedMovies
     case popularMovies
     case nowPlayingMovies
+    
+    // tv
+    case airingTodayTVShows
+    case onTheAirTVShows
+    case popularTVShows
+    case topRatedTVShows
     
     // person
     case popularPersons
@@ -34,7 +34,7 @@ enum TmdbPageableListType {
         case .topRatedTVShows:
             return "Список лучших ТВ-шоу"
             
-        // tvShow
+        // tv
         case .upcomingMovies:
             return "Скоро в кино"
         case .topRatedMovies:
@@ -52,16 +52,6 @@ enum TmdbPageableListType {
     
     func getNetworkContext(page: Int) -> NetworkContext {
         switch self {
-        // tvShow
-        case .airingTodayTVShows:
-            return AiringTodayTVShowsNetworkContext(page: page)
-        case .onTheAirTVShows:
-            return OnTheAirTVShowsNetworkContext(page: page)
-        case .popularTVShows:
-            return PopularTVShowsNetworkContext(page: page)
-        case .topRatedTVShows:
-            return TopRatedTVShowsNetworkContext(page: page)
-            
         // movie
         case .upcomingMovies:
             return UpcomingMoviesNetworkContext(page: page)
@@ -72,6 +62,16 @@ enum TmdbPageableListType {
         case .nowPlayingMovies:
             return NowPlayingMoviesNetworkContext(page: page)
             
+        // tv
+        case .airingTodayTVShows:
+            return AiringTodayTVsNetworkContext(page: page)
+        case .onTheAirTVShows:
+            return OnTheAirTVsNetworkContext(page: page)
+        case .popularTVShows:
+            return PopularTVsNetworkContext(page: page)
+        case .topRatedTVShows:
+            return TopRatedTVsNetworkContext(page: page)
+            
         // person
         case .popularPersons:
             return PopularPersonsNetworkContext(page: page)
@@ -80,12 +80,14 @@ enum TmdbPageableListType {
     
     var modelType: TmdbModelType {
         switch self {
-        case .airingTodayTVShows, .onTheAirTVShows, .popularTVShows, .topRatedTVShows:
-            return .tvShow
         case .upcomingMovies, .topRatedMovies, .popularMovies, .nowPlayingMovies:
             return .movie
+        case .airingTodayTVShows, .onTheAirTVShows, .popularTVShows, .topRatedTVShows:
+            return .tv
         case .popularPersons:
-            return .actor
+            return .person
         }
     }
+    
+    
 }

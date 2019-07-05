@@ -7,7 +7,7 @@
 //
 
 class TopRatedMoviesNetworkContext: NetworkContext {
-    var route: TmdbEndPoint { return .getMoviesTopRated }
+    var route: TmdbRoute { return .getMoviesTopRated }
     var method: NetworkMethod { return .get }
     var parameters = [String: Any]()
     

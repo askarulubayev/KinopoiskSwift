@@ -45,46 +45,20 @@ class ImageViewWithSubtitleView: UIView {
     }
 }
 
-// MARK: - extension for animation when view tapped
 extension ImageViewWithSubtitleView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        animate(isHighlighted: true)
+        setupDefaultClickAnimation(isHighlighted: true)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        animate(isHighlighted: false)
+        setupDefaultClickAnimation(isHighlighted: false)
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        animate(isHighlighted: false)
-    }
-    
-    private func animate(isHighlighted: Bool, completion: ((Bool) -> Void)?=nil) {
-        let animationOptions: UIView.AnimationOptions = [.allowUserInteraction]
-        if isHighlighted {
-            UIView.animate(
-                withDuration: 0.8,
-                delay: 0,
-                usingSpringWithDamping: 1,
-                initialSpringVelocity: 0,
-                options: animationOptions,
-                animations: {
-                    self.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
-            })
-        } else {
-            UIView.animate(
-                withDuration: 0.8,
-                delay: 0,
-                usingSpringWithDamping: 1,
-                initialSpringVelocity: 0,
-                options: animationOptions,
-                animations: {
-                    self.backgroundColor = UIColor.white
-            })
-        }
+        setupDefaultClickAnimation(isHighlighted: false)
     }
 }
 

@@ -10,14 +10,9 @@ import UIKit
 
 class ShowAllItemsTVCell: UITableViewCell, ReusableView {
     
-    private let topSeperatorView = UIView()
     let titleLabel = UILabel()
     let allLabel = UILabel()
     let arrowRightImageView = UIImageView()
-    
-    func set(title: String?) {
-        titleLabel.text = title
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,19 +22,20 @@ class ShowAllItemsTVCell: UITableViewCell, ReusableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func set(title: String?) {
+        titleLabel.text = title
+    }
 }
 
 extension ShowAllItemsTVCell: ViewInstallationProtocol {
     func addSubviews() {
-        addSubview(topSeperatorView)
         addSubview(titleLabel)
         addSubview(allLabel)
         addSubview(arrowRightImageView)
     }
     
     func setViewConstraints() {
-        topSeperatorView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, heightConstant: 0.3)
-        
         var layoutConstraints = [NSLayoutConstraint]()
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -66,9 +62,6 @@ extension ShowAllItemsTVCell: ViewInstallationProtocol {
     }
     
     func stylizeViews() {
-        // TODO: uncomment this line after solving problem with seperator lines in main page
-        // topSeperatorView.backgroundColor = .lightGray
-        
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         titleLabel.textColor = .black
         

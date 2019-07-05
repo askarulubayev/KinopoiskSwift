@@ -7,7 +7,7 @@
 //
 
 struct TmdbResult<T: Decodable>: Decodable {
-    let results: Array<T>?
+    let results: [T]?
     let total_results: Int?
     let total_pages: Int?
     let page: Int?

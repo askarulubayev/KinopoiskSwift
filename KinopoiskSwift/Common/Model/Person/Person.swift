@@ -12,7 +12,7 @@ struct Person {
     let id: Int?
     let name: String?
     let popularity: Double?
-    let known_for: [TmdbModelWrapper]?
+    let known_for: [TmdbPersonWrapper]?
 }
 
 extension Person: TmdbModel {
@@ -32,6 +32,6 @@ extension Person: TmdbModel {
     }
     
     func getModelType() -> TmdbModelType {
-        return .actor
+        return .person
     }
 }

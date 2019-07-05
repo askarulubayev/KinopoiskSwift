@@ -14,4 +14,5 @@ enum AppImage: String, ImageProtocol {
     case films
     case tvShows
     case arrowRight
+    case search
 }

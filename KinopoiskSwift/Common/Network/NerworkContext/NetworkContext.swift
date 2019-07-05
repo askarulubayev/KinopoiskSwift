@@ -9,7 +9,7 @@
 import Foundation
 
 protocol NetworkContext: class {
-    var route: TmdbEndPoint { get }
+    var route: TmdbRoute { get }
     var method: NetworkMethod { get }
     var encoding: NetworkEncoding { get }
     var parameters: [String: Any] { get set }
@@ -19,7 +19,15 @@ extension NetworkContext {
     
     var url: URL? { return route.url() }
     
-    var parameters: [String: Any] { return [:] }
+    var parameters: [String: Any] {
+        get {
+            setDefaultParameters()
+            return [:]
+        } set {
+            parameters = newValue
+            setDefaultParameters()
+        }
+    }
     
     var encoding: NetworkEncoding { return .url }
     

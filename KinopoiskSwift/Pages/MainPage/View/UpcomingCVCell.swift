@@ -45,13 +45,39 @@ extension UpcomingMovieCVCell: ViewInstallationProtocol {
     }
     
     func setViewConstraints() {
-        posterImageView.anchor(top: topAnchor, left: leftAnchor, topConstant: 8, leftConstant: 12, widthConstant: getPosterImageViewWidth(), heightConstant: imageViewHeight())
+        posterImageView.anchor(
+            top: topAnchor,
+            left: leftAnchor,
+            topConstant: 8,
+            leftConstant: 12,
+            widthConstant: getPosterImageViewWidth(),
+            heightConstant: imageViewHeight()
+        )
         
-        darkCoverView.anchor(top: backdropImageView.topAnchor, left: backdropImageView.leftAnchor, right: backdropImageView.rightAnchor, bottom: backdropImageView.bottomAnchor)
+        darkCoverView.anchor(
+            top: backdropImageView.topAnchor,
+            left: backdropImageView.leftAnchor,
+            right: backdropImageView.rightAnchor,
+            bottom: backdropImageView.bottomAnchor
+        )
         
-        backdropImageView.anchor(top: topAnchor, right: rightAnchor, topConstant: 8, rightConstant: 12, widthConstant: getBackdropImageViewWidth(), heightConstant: imageViewHeight())
+        backdropImageView.anchor(
+            top: topAnchor,
+            right: rightAnchor,
+            topConstant: 8,
+            rightConstant: 12,
+            widthConstant: getBackdropImageViewWidth(),
+            heightConstant: imageViewHeight()
+        )
         
-        verticalStackView.anchor(left: backdropImageView.leftAnchor, right: backdropImageView.rightAnchor, bottom: backdropImageView.bottomAnchor, leftConstant: 4, rightConstant: 4, bottomConstant: 4)
+        verticalStackView.anchor(
+            left: backdropImageView.leftAnchor,
+            right: backdropImageView.rightAnchor,
+            bottom: backdropImageView.bottomAnchor,
+            leftConstant: 4,
+            rightConstant: 4,
+            bottomConstant: 4
+        )
     }
     
     func stylizeViews() {

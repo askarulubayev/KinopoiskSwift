@@ -17,6 +17,7 @@ class MainPageHeaderTypesView: UIView {
     let moviesView = ImageViewWithSubtitleView()
     let personsView = ImageViewWithSubtitleView()
     let tvShowsView = ImageViewWithSubtitleView()
+    let bottomSeperatorView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,12 +32,13 @@ class MainPageHeaderTypesView: UIView {
 extension MainPageHeaderTypesView: ViewInstallationProtocol {
     func addSubviews() {
         addSubview(topSeperatorView)
-        insertSubview(horizontalStackView, at: 0)
         addSubview(moviesPersonsSeperatorView)
         addSubview(personsTvShowsSeperatorView)
+        insertSubview(horizontalStackView, at: 0)
         horizontalStackView.addArrangedSubview(moviesView)
         horizontalStackView.addArrangedSubview(personsView)
         horizontalStackView.addArrangedSubview(tvShowsView)
+        addSubview(bottomSeperatorView)
     }
     
     func setViewConstraints() {
@@ -49,6 +51,8 @@ extension MainPageHeaderTypesView: ViewInstallationProtocol {
         
         personsTvShowsSeperatorView.anchor(top: topAnchor, bottom: bottomAnchor, widthConstant: 0.5)
         personsTvShowsSeperatorView.centerXAnchor.constraint(equalTo: tvShowsView.leadingAnchor).isActive = true
+        
+        bottomSeperatorView.anchor(left: leftAnchor, right: rightAnchor, bottom: bottomAnchor, heightConstant: 0.5)
     }
     
     func stylizeViews() {
@@ -66,10 +70,12 @@ extension MainPageHeaderTypesView: ViewInstallationProtocol {
         moviesView.text = TmdbModelType.movie.title
         
         personsView.image = AppImage.actors.uiImage
-        personsView.text = TmdbModelType.actor.title
+        personsView.text = TmdbModelType.person.title
         
         tvShowsView.image = AppImage.tvShows.uiImage
-        tvShowsView.text = TmdbModelType.tvShow.title
+        tvShowsView.text = TmdbModelType.tv.title
+        
+        bottomSeperatorView.backgroundColor = .lightGray
     }
 }
 

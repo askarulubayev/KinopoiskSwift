@@ -15,28 +15,28 @@ class TVShowLoaderService {
     }
     
     func loadAiringTodayTVShows(page: Int, completion: @escaping (Result<[TVShow]>) -> Void) {
-        let networkContext = AiringTodayTVShowsNetworkContext(page: page)
+        let networkContext = AiringTodayTVsNetworkContext(page: page)
         loadTVShows(networkContext: networkContext) { result in
             completion(result)
         }
     }
     
     func loadOnTheAirTVShows(page: Int, completion: @escaping (Result<[TVShow]>) -> Void) {
-        let networkContext = OnTheAirTVShowsNetworkContext(page: page)
+        let networkContext = OnTheAirTVsNetworkContext(page: page)
         loadTVShows(networkContext: networkContext) { result in
             completion(result)
         }
     }
     
     func loadPopularTVShows(page: Int, completion: @escaping (Result<[TVShow]>) -> Void) {
-        let networkContext = PopularTVShowsNetworkContext(page: page)
+        let networkContext = PopularTVsNetworkContext(page: page)
         loadTVShows(networkContext: networkContext) { result in
             completion(result)
         }
     }
     
     func loadTopRatedTVShows(page: Int, completion: @escaping (Result<[TVShow]>) -> Void) {
-        let networkContext = TopRatedTVShowsNetworkContext(page: page)
+        let networkContext = TopRatedTVsNetworkContext(page: page)
         loadTVShows(networkContext: networkContext) { result in
             completion(result)
         }

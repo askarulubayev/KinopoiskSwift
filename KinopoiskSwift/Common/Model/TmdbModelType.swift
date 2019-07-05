@@ -6,19 +6,30 @@
 //  Copyright © 2019 askar.ulubayev. All rights reserved.
 //
 
-enum TmdbModelType {
-    case actor
+enum TmdbModelType: String, Decodable {
+    case person
     case movie
-    case tvShow
+    case tv
     
     var title: String {
         switch self {
-        case .actor:
+        case .person:
             return "Люди"
         case .movie:
             return "Фильмы"
-        case .tvShow:
+        case .tv:
             return "ТВ-шоу"
+        }
+    }
+    
+    var metatype: TmdbModel.Type {
+        switch self {
+        case .person:
+            return Person.self
+        case .tv:
+            return TVShow.self
+        case .movie:
+            return Movie.self
         }
     }
 }

@@ -41,5 +41,4 @@ class DiscardableImageCacheItem: NSObject, NSDiscardableContent {
     public func isContentDiscarded() -> Bool {
         return image == nil
     }
-    
 }

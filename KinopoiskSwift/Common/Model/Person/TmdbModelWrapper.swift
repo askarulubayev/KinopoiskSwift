@@ -1,14 +1,15 @@
 //
-//  TmdbModelWrapper.swift
+//  TmdbPersonWrapper.swift
 //  KinopoiskSwift
 //
 //  Created by Аскар on 5/19/19.
 //  Copyright © 2019 askar.ulubayev. All rights reserved.
 //
 
-struct TmdbModelWrapper: Decodable {
+struct TmdbPersonWrapper: Decodable {
     
-    let model: TmdbMovieTVShowModel?
+    /// For person model
+    let movieTVShowModel: TmdbMovieTVShowModel?
     
     private enum CodingKeys: String, CodingKey {
         case media_type
@@ -17,6 +18,27 @@ struct TmdbModelWrapper: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let type = try container.decode(MediaType.self, forKey: .media_type)
-        self.model = try type.metatype.init(from: decoder)
+        if let model = try? type.metatype.init(from: decoder) as? TmdbMovieTVShowModel {
+            movieTVShowModel = model
+        } else {
+            movieTVShowModel = nil
+        }
     }
 }
+
+struct TmdbModelWrapper: Decodable {
+    
+    /// for all mediaTypes
+    let tmdbModel: TmdbModel?
+    
+    private enum CodingKeys: String, CodingKey {
+        case media_type
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let type = try container.decode(MediaType.self, forKey: .media_type)
+        tmdbModel = try type.metatype.init(from: decoder)
+    }
+}
+

@@ -65,7 +65,7 @@ extension SectionHeaderView: ViewInstallationProtocol {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         layoutConstraints += [
             titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 12),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 4)
         ]
         
         rightButton.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +82,7 @@ extension SectionHeaderView: ViewInstallationProtocol {
     func stylizeViews() {
         contentView.backgroundColor = AppColor.lightGray.uiColor
         
-        topSeperatorView.backgroundColor = .lightGray
+//        topSeperatorView.backgroundColor = .lightGray
         
         titleLabel.textColor = AppColor.darkGray.uiColor
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .thin)

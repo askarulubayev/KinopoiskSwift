@@ -13,6 +13,7 @@ class MainPagePresenter {
     weak var view: MainPageViewInput!
     
     private let networkService: NetworkService = NetworkAdapter()
+    
     private lazy var loaderService = MainPageLoaderService(
         networkService: networkService,
         mainPageComponentsStore: mainPageComponentsStore
@@ -33,7 +34,21 @@ extension MainPagePresenter: MainPagePresenterInput {
         loadAllData(isActivityIndicatorVisible: false)
     }
     
+    func searchMulti(text: String) {
+        let networkContext = MultiSearchNetworkContext(query: text, page: 1)
+        networkService.loadDecodable(context: networkContext, type: TmdbResult<TmdbModelWrapper>.self) { [weak self] result in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .success(let models):
+                strongSelf.view.set(searchResult: models.results?.compactMap { $0.tmdbModel } ?? [])
+            case .error(let error):
+                print(error.description)
+            }
+        }
+    }
+    
     private func loadAllData(isActivityIndicatorVisible: Bool) {
+        
         if isActivityIndicatorVisible { view.showActivityIndicator() }
         loaderService.loadMainPage { [weak self] result in
             guard let strongSelf = self else { return }

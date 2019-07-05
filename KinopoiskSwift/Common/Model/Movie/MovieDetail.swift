@@ -6,7 +6,7 @@
 //  Copyright © 2019 askar.ulubayev. All rights reserved.
 //
 
-struct MovieDetail: Codable {
+struct MovieDetail: Decodable {
     let id: Int
     let title: String?
     let original_title: String?

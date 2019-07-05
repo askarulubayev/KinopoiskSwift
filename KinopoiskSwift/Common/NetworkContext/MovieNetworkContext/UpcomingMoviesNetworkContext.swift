@@ -7,7 +7,7 @@
 //
 
 class UpcomingMoviesNetworkContext: NetworkContext {
-    var route: TmdbEndPoint { return .getMoviesUpcoming }
+    var route: TmdbRoute { return .getMoviesUpcoming }
     var method: NetworkMethod { return .get }
     var parameters = [String: Any]()
     

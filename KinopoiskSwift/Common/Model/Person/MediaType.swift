@@ -7,11 +7,14 @@
 //
 
 enum MediaType: String, Codable {
+    case person
     case tv
     case movie
     
-    var metatype: TmdbMovieTVShowModel.Type {
+    var metatype: TmdbModel.Type {
         switch self {
+        case .person:
+            return Person.self
         case .tv:
             return TVShow.self
         case .movie:

@@ -7,7 +7,7 @@
 //
 
 class PopularPersonsNetworkContext: NetworkContext {
-    var route: TmdbEndPoint { return .getPersonsPopular }
+    var route: TmdbRoute { return .getPersonsPopular }
     var method: NetworkMethod { return .get }
     var parameters = [String: Any]()
     

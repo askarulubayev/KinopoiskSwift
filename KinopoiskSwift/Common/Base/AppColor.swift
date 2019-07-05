@@ -9,7 +9,7 @@
 import UIKit.UIColor
 
 enum AppColor {
-    case orange, lightGray, gray, darkGray, lightBlue, brown
+    case orange, lightGray, gray, darkGray, lightBlue, brown, whitish, grayClick
     
     var uiColor: UIColor {
         switch self {
@@ -19,6 +19,8 @@ enum AppColor {
         case .darkGray: return UIColor(rgb: 91, 87, 83)
         case .lightBlue: return UIColor(rgb: 239, 243, 250)
         case .brown: return UIColor(rgb: 58, 58, 58)
+        case .whitish: return UIColor(rgb: 247, 247, 247)
+        case .grayClick: return UIColor(rgb: 217, 217, 217)
         }
     }
     

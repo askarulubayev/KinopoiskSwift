@@ -9,4 +9,5 @@
 protocol MainPageViewInput: BaseViewInputProtocol {
     func set(upcomingMovies: [Movie])
     func set(headerComponents: [MainPageHeaderComponent])
+    func set(searchResult: [TmdbModel])
 }

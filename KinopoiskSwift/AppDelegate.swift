@@ -11,11 +11,11 @@ import CoreData
 
 let screenSize = UIScreen.main.bounds.size
 
+/// TODO: delete protocols from Codable objects and transfer it to ModelNameViewModel
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = NavigationController(rootViewController: MainPageViewController())
+        window?.rootViewController = MainPageRouter().createMainPage()
         
         return true
     }

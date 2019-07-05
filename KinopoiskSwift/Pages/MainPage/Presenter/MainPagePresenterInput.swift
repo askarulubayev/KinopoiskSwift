@@ -9,4 +9,5 @@
 protocol MainPagePresenterInput {
     func loadMainPage()
     func refreshMainPage()
+    func searchMulti(text: String)
 }

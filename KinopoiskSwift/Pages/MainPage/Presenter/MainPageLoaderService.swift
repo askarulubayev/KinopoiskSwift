@@ -8,9 +8,9 @@
 
 import Foundation
 
-class MainPageLoaderService {
+class MainPageLoaderService: GenreLoaderServiceProtocol {
     
-    private let networkService: NetworkService
+    let networkService: NetworkService
     
     private lazy var movieLoaderService = MovieLoaderService(networkService: networkService)
     private lazy var tvShowLoaderService = TVShowLoaderService(networkService: networkService)
@@ -24,21 +24,38 @@ class MainPageLoaderService {
     }
     
     func loadMainPage(onCompletion perform: @escaping (Result<Void>) -> Void) {
-        let dispatchGroup = DispatchGroup()
         
-        loadMainPageToComponentsStore(dispatchGroup: dispatchGroup) { results in
-            dispatchGroup.notify(queue: .main) {
-                for result in results {
-                    switch result {
-                    case .success:
-                        continue
-                    case .error:
-                        perform(result)
-                        return
-                    }
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        DispatchQueue.global().async {
+            self.loadGenres { result in
+                switch result {
+                case .success:
+                    print("ok")
+                case .error(let error):
+                    perform(.error(error))
                 }
-                perform(.success(()))
+                semaphore.signal()
             }
+        }
+        
+        DispatchQueue.global().async {
+            semaphore.wait()
+            let dispatchGroup = DispatchGroup()
+            self.loadMainPageToComponentsStore(dispatchGroup: dispatchGroup, completion: { results in
+                dispatchGroup.notify(queue: .main, execute: {
+                    for result in results {
+                        switch result {
+                        case .success:
+                            continue
+                        case .error:
+                            perform(result)
+                            return
+                        }
+                    }
+                    perform(.success(()))
+                })
+            })
         }
     }
     

@@ -7,7 +7,7 @@
 //
 
 class NowPlayingMoviesNetworkContext: NetworkContext {
-    var route: TmdbEndPoint { return .getMoviesNowPlaying }
+    var route: TmdbRoute { return .getMoviesNowPlaying }
     var method: NetworkMethod { return .get }
     var parameters = [String: Any]()
     
