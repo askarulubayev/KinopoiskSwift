@@ -44,7 +44,9 @@ extension MainPageHeaderViewController: UICollectionViewDataSource {
 
 extension MainPageHeaderViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: route to detail page
+        collectionView.deselectItem(at: indexPath, animated: true)
+        guard let navigationController = navigationController as? NavigationController else { return }
+        let _ = ItemDetailsRouter(model: movies[indexPath.row], navigationController: navigationController, networkService: NetworkAdapter())
     }
 }
 

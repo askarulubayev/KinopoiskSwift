@@ -10,9 +10,10 @@ import UIKit
 
 class ShowAllItemsTVCell: UITableViewCell, ReusableView {
     
-    let titleLabel = UILabel()
-    let allLabel = UILabel()
-    let arrowRightImageView = UIImageView()
+    private let titleLabel = UILabel()
+    private let allLabel = UILabel()
+    private let arrowRightImageView = UIImageView()
+    private let separatorView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,6 +27,22 @@ class ShowAllItemsTVCell: UITableViewCell, ReusableView {
     func set(title: String?) {
         titleLabel.text = title
     }
+    
+    func makeBigTitle() {
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 19)
+    }
+    
+    func makeSmallTitle() {
+        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+    }
+    
+    func showSeparatorView() {
+        separatorView.isHidden = false
+    }
+    
+    func hideSeparatorView() {
+        separatorView.isHidden = true
+    }
 }
 
 extension ShowAllItemsTVCell: ViewInstallationProtocol {
@@ -33,6 +50,7 @@ extension ShowAllItemsTVCell: ViewInstallationProtocol {
         addSubview(titleLabel)
         addSubview(allLabel)
         addSubview(arrowRightImageView)
+        addSubview(separatorView)
     }
     
     func setViewConstraints() {
@@ -41,7 +59,7 @@ extension ShowAllItemsTVCell: ViewInstallationProtocol {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         layoutConstraints += [
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 12)
+            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16)
         ]
         
         allLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +76,14 @@ extension ShowAllItemsTVCell: ViewInstallationProtocol {
             arrowRightImageView.heightAnchor.constraint(equalToConstant: 13)
         ]
         
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        layoutConstraints += [
+            separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            separatorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            separatorView.heightAnchor.constraint(equalToConstant: 0.5)
+        ]
+        
         NSLayoutConstraint.activate(layoutConstraints)
     }
     
@@ -65,11 +91,14 @@ extension ShowAllItemsTVCell: ViewInstallationProtocol {
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         titleLabel.textColor = .black
         
+        allLabel.isHidden = true
         allLabel.text = "Все"
         allLabel.font = UIFont.systemFont(ofSize: 13, weight: .thin)
         allLabel.textColor = .gray
         
         arrowRightImageView.image = AppImage.arrowRight.uiImage
         arrowRightImageView.contentMode = .scaleAspectFit
+        
+        separatorView.backgroundColor = AppColor.lightGray.uiColor
     }
 }

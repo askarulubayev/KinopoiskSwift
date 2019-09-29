@@ -8,4 +8,5 @@
 
 protocol SearchResultRouterInput: class {
     func routeToListPage(modelType: TmdbModelType)
+    func routeToDetailPage(model: TmdbModel)
 }

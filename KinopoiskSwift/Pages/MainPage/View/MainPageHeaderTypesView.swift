@@ -10,14 +10,14 @@ import UIKit
 
 class MainPageHeaderTypesView: UIView {
     
-    let topSeperatorView = UIView()
-    let horizontalStackView = UIStackView()
-    let moviesPersonsSeperatorView = UIView()
-    let personsTvShowsSeperatorView = UIView()
-    let moviesView = ImageViewWithSubtitleView()
-    let personsView = ImageViewWithSubtitleView()
-    let tvShowsView = ImageViewWithSubtitleView()
-    let bottomSeperatorView = UIView()
+    private let topSeparatorView = UIView()
+    private let horizontalStackView = UIStackView()
+    private let moviesPersonsSeperatorView = UIView()
+    private let personsTvShowsSeperatorView = UIView()
+    private let moviesView = ImageViewWithSubtitleView()
+    private let personsView = ImageViewWithSubtitleView()
+    private let tvShowsView = ImageViewWithSubtitleView()
+    private let bottomSeparatorView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,18 +31,18 @@ class MainPageHeaderTypesView: UIView {
 
 extension MainPageHeaderTypesView: ViewInstallationProtocol {
     func addSubviews() {
-        addSubview(topSeperatorView)
+        addSubview(topSeparatorView)
         addSubview(moviesPersonsSeperatorView)
         addSubview(personsTvShowsSeperatorView)
         insertSubview(horizontalStackView, at: 0)
         horizontalStackView.addArrangedSubview(moviesView)
         horizontalStackView.addArrangedSubview(personsView)
         horizontalStackView.addArrangedSubview(tvShowsView)
-        addSubview(bottomSeperatorView)
+        addSubview(bottomSeparatorView)
     }
     
     func setViewConstraints() {
-        topSeperatorView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, heightConstant: 0.5)
+        topSeparatorView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, heightConstant: 0.5)
         
         horizontalStackView.fillSuperview()
         
@@ -52,19 +52,19 @@ extension MainPageHeaderTypesView: ViewInstallationProtocol {
         personsTvShowsSeperatorView.anchor(top: topAnchor, bottom: bottomAnchor, widthConstant: 0.5)
         personsTvShowsSeperatorView.centerXAnchor.constraint(equalTo: tvShowsView.leadingAnchor).isActive = true
         
-        bottomSeperatorView.anchor(left: leftAnchor, right: rightAnchor, bottom: bottomAnchor, heightConstant: 0.5)
+        bottomSeparatorView.anchor(left: leftAnchor, right: rightAnchor, bottom: bottomAnchor, heightConstant: 0.5)
     }
     
     func stylizeViews() {
-        topSeperatorView.backgroundColor = .lightGray
+        topSeparatorView.backgroundColor = AppColor.lightGray.uiColor
         
         horizontalStackView.backgroundColor = .green
         horizontalStackView.axis = .horizontal
         horizontalStackView.distribution = .fillEqually
         
-        moviesPersonsSeperatorView.backgroundColor = .lightGray
+        moviesPersonsSeperatorView.backgroundColor = AppColor.lightGray.uiColor
         
-        personsTvShowsSeperatorView.backgroundColor = .lightGray
+        personsTvShowsSeperatorView.backgroundColor = AppColor.lightGray.uiColor
         
         moviesView.image = AppImage.films.uiImage
         moviesView.text = TmdbModelType.movie.title
@@ -75,7 +75,7 @@ extension MainPageHeaderTypesView: ViewInstallationProtocol {
         tvShowsView.image = AppImage.tvShows.uiImage
         tvShowsView.text = TmdbModelType.tv.title
         
-        bottomSeperatorView.backgroundColor = .lightGray
+        bottomSeparatorView.backgroundColor = AppColor.lightGray.uiColor
     }
 }
 

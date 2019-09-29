@@ -10,10 +10,9 @@ import UIKit
 
 class SectionHeaderView: UITableViewHeaderFooterView, ReusableView {
     
-    private let topSeperatorView = UIView()
     private let titleLabel = UILabel()
     private let rightButton = UIButton()
-    private let bottomSeperatorView = UIView()
+    private let bottomSeparatorView = UIView()
     
     var performOnRightButtonTap: (() -> Void)?
     
@@ -51,21 +50,19 @@ class SectionHeaderView: UITableViewHeaderFooterView, ReusableView {
 
 extension SectionHeaderView: ViewInstallationProtocol {
     func addSubviews() {
-        addSubview(topSeperatorView)
         addSubview(titleLabel)
         addSubview(rightButton)
-        addSubview(bottomSeperatorView)
+        addSubview(bottomSeparatorView)
     }
     
     func setViewConstraints() {
-        topSeperatorView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, heightConstant: 0.3)
-        
         var layoutConstraints = [NSLayoutConstraint]()
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         layoutConstraints += [
-            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 12),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 4)
+            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
         ]
         
         rightButton.translatesAutoresizingMaskIntoConstraints = false
@@ -76,13 +73,11 @@ extension SectionHeaderView: ViewInstallationProtocol {
         
         NSLayoutConstraint.activate(layoutConstraints)
         
-        bottomSeperatorView.anchor(left: leftAnchor, right: rightAnchor, bottom: bottomAnchor, heightConstant: 0.3)
+        bottomSeparatorView.anchor(left: leftAnchor, right: rightAnchor, bottom: bottomAnchor, heightConstant: 0.3)
     }
     
     func stylizeViews() {
-        contentView.backgroundColor = AppColor.lightGray.uiColor
-        
-//        topSeperatorView.backgroundColor = .lightGray
+        contentView.backgroundColor = AppColor.whitish.uiColor
         
         titleLabel.textColor = AppColor.darkGray.uiColor
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .thin)

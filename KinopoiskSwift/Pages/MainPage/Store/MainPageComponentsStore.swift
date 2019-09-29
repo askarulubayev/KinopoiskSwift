@@ -26,7 +26,7 @@ class MainPageComponentsStore {
         return MainPageHeaderComponent(
             sectionTitle: TmdbModelType.movie.title,
             components: [
-                .showAllItems(listType: TmdbPageableListType.nowPlayingMovies),
+                .showAllItemsWithBigTitle(listType: TmdbPageableListType.nowPlayingMovies),
                 .horizontalListItems(models: nowPlayingMovies),
                 .showAllItems(listType: TmdbPageableListType.popularMovies),
                 .showAllItems(listType: TmdbPageableListType.topRatedMovies),
@@ -39,7 +39,7 @@ class MainPageComponentsStore {
         return MainPageHeaderComponent(
             sectionTitle: TmdbModelType.tv.title,
             components: [
-                .showAllItems(listType: TmdbPageableListType.airingTodayTVShows),
+                .showAllItemsWithBigTitle(listType: TmdbPageableListType.airingTodayTVShows),
                 .horizontalListItems(models: airingTodayTVShows),
                 .showAllItems(listType: TmdbPageableListType.popularTVShows),
                 .showAllItems(listType: TmdbPageableListType.topRatedTVShows),
@@ -52,7 +52,7 @@ class MainPageComponentsStore {
         return MainPageHeaderComponent(
             sectionTitle: TmdbModelType.person.title,
             components: [
-                .showAllItems(listType: TmdbPageableListType.popularPersons),
+                .showAllItemsWithBigTitle(listType: TmdbPageableListType.popularPersons),
                 .horizontalListItems(models: popularPersons)
             ]
         )

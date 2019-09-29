@@ -9,4 +9,5 @@
 enum SearchResultComponentType {
     case component(model: TmdbModel)
     case allResult(type: TmdbModelType, totalResult: Int)
+    case spacer
 }

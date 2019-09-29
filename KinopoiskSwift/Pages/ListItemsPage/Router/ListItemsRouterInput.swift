@@ -6,8 +6,6 @@
 //  Copyright © 2019 askar.ulubayev. All rights reserved.
 //
 
-import Foundation
-
 protocol ListItemsRouterInput {
     func routeToDetailPage(model: TmdbModel)
 }

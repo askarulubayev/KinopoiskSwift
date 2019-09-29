@@ -8,6 +8,8 @@
 
 class ListItemsTVPresenter: ListItemsPresenterProtocol {
     
+    typealias ItemModelType = TVShow
+    
     private weak var itemsView: ListItemsViewInput!
     
     var view: ListItemsViewInput {
@@ -25,18 +27,15 @@ class ListItemsTVPresenter: ListItemsPresenterProtocol {
         self.networkService = networkService
     }
     
-    required init(view: ListItemsViewInput, tmdbSearchPageableListType: TmdbSearchPageableListType, searchText: String, networkService: NetworkService) {
+    required init(
+        view: ListItemsViewInput,
+        tmdbSearchPageableListType: TmdbSearchPageableListType,
+        searchText: String,
+        networkService: NetworkService
+    ) {
         self.itemsView = view
         self.tmdbSearchPageableListType = tmdbSearchPageableListType
         self.searchText = searchText
         self.networkService = networkService
-    }
-    
-    func loadItems(page: Int) {
-        if tmdbPageableListType != nil {
-            loadItems(page: page, type: TVShow.self)
-        } else if tmdbSearchPageableListType != nil {
-            searchItems(page: page, type: TVShow.self)
-        }
     }
 }

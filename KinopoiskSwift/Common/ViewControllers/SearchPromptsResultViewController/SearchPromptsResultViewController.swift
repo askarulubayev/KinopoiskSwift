@@ -41,6 +41,7 @@ class SearchPromptsResultViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         stylizeViews()
+        setupKeyboardNotifications()
     }
     
     func reloadData() {
@@ -100,6 +101,8 @@ extension SearchPromptsResultViewController {
 
 extension SearchPromptsResultViewController {
     private func stylizeViews() {
+        tableView.contentInsetAdjustmentBehavior = .never
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(SearchPromptsResultViewController.didTapBackground(sender:)))
         tap.delegate = self
         view.addGestureRecognizer(tap)
@@ -111,15 +114,26 @@ extension SearchPromptsResultViewController {
         tableView.separatorInset = separatorInset
         tableView.separatorStyle = .singleLine
         tableView.tableFooterView = UIView()
+        tableView.showsVerticalScrollIndicator = false
     }
     
     private func setupKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(SearchPromptsResultViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SearchPromptsResultViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(SearchPromptsResultViewController.keyboardWillShow(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(SearchPromptsResultViewController.keyboardWillHide(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     private func animateToKeyboardHeight(kbHeight: CGFloat, duration: Double) {
         tableView.contentInset = UIEdgeInsets(top: tableView.contentInset.top, left: 0, bottom: kbHeight, right: 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsets(top: tableView.contentInset.top, left: 0, bottom: kbHeight, right: 0)
     }
 }

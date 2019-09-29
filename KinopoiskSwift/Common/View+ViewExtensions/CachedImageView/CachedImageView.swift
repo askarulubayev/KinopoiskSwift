@@ -17,7 +17,7 @@ class CachedImageView: UIImageView {
     private var urlStringForChecking: String?
     private var emptyImage: UIImage?
     
-    public convenience init(cornerRadius: CGFloat = 0, tapCallback: @escaping (() ->())) {
+    public convenience init(cornerRadius: CGFloat = 3, tapCallback: @escaping (() ->())) {
         self.init(cornerRadius: cornerRadius, emptyImage: nil)
         self.tapCallback = tapCallback
         backgroundColor = .lightGray
@@ -31,7 +31,7 @@ class CachedImageView: UIImageView {
     
     private var tapCallback: (() -> ())?
     
-    public init(cornerRadius: CGFloat = 0, emptyImage: UIImage? = nil) {
+    public init(cornerRadius: CGFloat = 3, emptyImage: UIImage? = nil) {
         super.init(frame: .zero)
         backgroundColor = .lightGray
         contentMode = .scaleAspectFill

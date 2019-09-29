@@ -6,8 +6,7 @@
 //  Copyright © 2019 askar.ulubayev. All rights reserved.
 //
 
-struct Credits: Codable {
+struct Credits<Cast: TmdbModel>: Decodable {
     let id: Int?
     let cast: [Cast]?
-    let crew: [Crew]?
 }

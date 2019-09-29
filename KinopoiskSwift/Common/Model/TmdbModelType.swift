@@ -32,4 +32,15 @@ enum TmdbModelType: String, Decodable {
             return Movie.self
         }
     }
+    
+    var searchType: TmdbSearchPageableListType {
+        switch self {
+        case .movie:
+            return .searchMovie
+        case .tv:
+            return .searchTV
+        case .person:
+            return .searchPerson
+        }
+    }
 }

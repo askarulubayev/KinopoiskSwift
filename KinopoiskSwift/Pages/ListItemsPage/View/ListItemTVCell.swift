@@ -88,10 +88,10 @@ extension ListItemTVCell: ViewInstallationProtocol {
             left: leftAnchor,
             right: rightAnchor,
             bottom: bottomAnchor,
-            topConstant: 6,
-            leftConstant: 10,
-            rightConstant: 10,
-            bottomConstant: 6
+            topConstant: 4,
+            leftConstant: 8,
+            rightConstant: 8,
+            bottomConstant: 4
         )
         
         itemImageView.anchor(
@@ -109,18 +109,16 @@ extension ListItemTVCell: ViewInstallationProtocol {
         verticalStackView.anchor(
             left: itemImageView.rightAnchor,
             right: cardBackgroundView.rightAnchor,
-            leftConstant: 12,
-            rightConstant: 12
+            leftConstant: 16,
+            rightConstant: 16
         )
     }
     
     func stylizeViews() {
-        backgroundColor = AppColor.lightGray.uiColor
+        backgroundColor = AppColor.whitish.uiColor
         selectionStyle = .none
         
         cardBackgroundView.backgroundColor = .white
-        cardBackgroundView.layer.borderWidth = 0.5
-        cardBackgroundView.layer.borderColor = UIColor.lightGray.cgColor
         
         itemImageView.contentMode = .scaleAspectFill
         itemImageView.clipsToBounds = true

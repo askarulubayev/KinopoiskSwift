@@ -57,6 +57,7 @@ extension MainPagePresenter: MainPagePresenterInput {
             case .success: break
             case .error(let error):
                 strongSelf.view.showError(message: error.description)
+                return
             }
             let upcomingMovies = strongSelf.mainPageComponentsStore.upcomingMovies
             let headerComponents = strongSelf.mainPageComponentsStore.convertToHeaderComponents()
@@ -64,7 +65,7 @@ extension MainPagePresenter: MainPagePresenterInput {
                 strongSelf.view.set(upcomingMovies: upcomingMovies)
                 strongSelf.view.set(headerComponents: headerComponents)
             } else {
-                strongSelf.view.showError(message: NetworkError.noConnection.description)
+                strongSelf.view.showError(message: NetworkError.unknown.description)
             }
         }
     }

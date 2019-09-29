@@ -38,25 +38,10 @@ extension MainPageRouter: MainPageRouterInput {
     }
     
     func routeToListPage(listType: TmdbPageableListType) {
-        switch listType.modelType {
-        case .movie:
-             _ = ListItemsRouter<ListItemsMoviePresenter>(
-                tmdbPageableListType: listType,
-                navigationController: navigationController,
-                networkService: networkService
-            )
-        case .tv:
-            _ = ListItemsRouter<ListItemsTVPresenter>(
-                tmdbPageableListType: listType,
-                navigationController: navigationController,
-                networkService: networkService
-            )
-        case .person:
-            _ = ListItemsRouter<ListItemsPersonPresenter>(
-                tmdbPageableListType: listType,
-                navigationController: navigationController,
-                networkService: networkService
-            )
-        }
+        _ = ListItemsRouter(tmdbPageableListType: listType, navigationController: navigationController, networkService: networkService)
+    }
+    
+    func routeToDetailPage(model: TmdbModel) {
+        _ = ItemDetailsRouter(model: model, navigationController: navigationController, networkService: networkService)
     }
 }

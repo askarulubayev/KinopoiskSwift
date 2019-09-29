@@ -1,14 +1,14 @@
 //
-//  ItemDetailOverviewTVCell.swift
+//  OverviewTVCell.swift
 //  KinopoiskSwift
 //
-//  Created by Аскар on 7/4/19.
+//  Created by Аскар on 9/28/19.
 //  Copyright © 2019 askar.ulubayev. All rights reserved.
 //
 
 import UIKit
 
-class ItemDetailOverviewTVCell: UITableViewCell, ReusableView {
+class OverviewTVCell: UITableViewCell, ReusableView {
     
     private let overviewLabel = UILabel()
     
@@ -32,7 +32,7 @@ class ItemDetailOverviewTVCell: UITableViewCell, ReusableView {
     }
 }
 
-extension ItemDetailOverviewTVCell: ViewInstallationProtocol {
+extension OverviewTVCell: ViewInstallationProtocol {
     func addSubviews() {
         addSubview(overviewLabel)
     }
@@ -51,8 +51,10 @@ extension ItemDetailOverviewTVCell: ViewInstallationProtocol {
     }
     
     func stylizeViews() {
+        selectionStyle = .none
+        
         overviewLabel.textColor = .black
         overviewLabel.font = UIFont.systemFont(ofSize: 14)
-        overviewLabel.numberOfLines = 3
+        overviewLabel.numberOfLines = 0
     }
 }

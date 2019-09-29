@@ -10,19 +10,12 @@ import UIKit
 
 class UpcomingMovieCVCell: UICollectionViewCell, ReusableView {
     
-    let posterImageView = CachedImageView()
-    let backdropImageView = CachedImageView()
-    let darkCoverView = UIView()
-    let verticalStackView = UIStackView()
-    let titleLabel = UILabel()
-    let subtitleLabel = UILabel()
-    
-    func set(movie: Movie) {
-        posterImageView.loadImage(urlString: movie.getPosterPathUrlString())
-        backdropImageView.loadImage(urlString: movie.getBackdropPathUrlString())
-        titleLabel.text = movie.getTitle()
-        subtitleLabel.text = movie.getOriginalNameWithReleaseDate()
-    }
+    private let posterImageView = CachedImageView()
+    private let backdropImageView = CachedImageView()
+    private let darkCoverView = UIView()
+    private let verticalStackView = UIStackView()
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +24,13 @@ class UpcomingMovieCVCell: UICollectionViewCell, ReusableView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func set(movie: Movie) {
+        posterImageView.loadImage(urlString: movie.getPosterPathUrlString())
+        backdropImageView.loadImage(urlString: movie.getBackdropPathUrlString())
+        titleLabel.text = movie.getTitle()
+        subtitleLabel.text = movie.getOriginalNameWithReleaseDate()
     }
 }
 
@@ -49,7 +49,7 @@ extension UpcomingMovieCVCell: ViewInstallationProtocol {
             top: topAnchor,
             left: leftAnchor,
             topConstant: 8,
-            leftConstant: 12,
+            leftConstant: 16,
             widthConstant: getPosterImageViewWidth(),
             heightConstant: imageViewHeight()
         )
@@ -65,7 +65,7 @@ extension UpcomingMovieCVCell: ViewInstallationProtocol {
             top: topAnchor,
             right: rightAnchor,
             topConstant: 8,
-            rightConstant: 12,
+            rightConstant: 16,
             widthConstant: getBackdropImageViewWidth(),
             heightConstant: imageViewHeight()
         )
@@ -100,18 +100,18 @@ extension UpcomingMovieCVCell: ViewInstallationProtocol {
 
 extension UpcomingMovieCVCell {
     static func getHeight() -> CGFloat {
-        return (screenSize.width - 32) * 9 / 22 + 16
+        return (screenSize.width - 40) * 9 / 22 + 16
     }
     
     private func getPosterImageViewWidth() -> CGFloat {
-        return (screenSize.width - 32) * 6 / 22
+        return (screenSize.width - 40) * 6 / 22
     }
     
     private func getBackdropImageViewWidth() -> CGFloat {
-        return (screenSize.width - 32) * 16 / 22
+        return (screenSize.width - 40) * 16 / 22
     }
     
     private func imageViewHeight() -> CGFloat {
-        return (screenSize.width - 32) * 9 / 22
+        return (screenSize.width - 40) * 9 / 22
     }
 }

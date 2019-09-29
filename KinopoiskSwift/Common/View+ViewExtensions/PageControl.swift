@@ -14,8 +14,8 @@ class PageControl: UIView {
     private let pageControlItemMaxWidth: CGFloat = 4.3
     private let constantHeight: CGFloat = 8.0
     
-    var currentPageIndicatorTintColor = AppColor.gray.uiColor
-    var pageIndicatorTintColor = AppColor.lightGray.uiColor
+    var currentPageIndicatorTintColor = UIColor.lightGray
+    var pageIndicatorTintColor = UIColor.darkGray
     
     var currentPage: Int = 0 {
         didSet {

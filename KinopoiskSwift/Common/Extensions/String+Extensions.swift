@@ -9,12 +9,16 @@
 import Foundation
 
 extension String {
+    func date(withFormat dateFormat: DateFormat) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat.string
+        return dateFormatter.date(from: self)
+    }
+    
     subscript(value: NSRange) -> Substring {
         return self[value.lowerBound..<value.upperBound]
     }
-}
-
-extension String {
+    
     subscript(value: CountableClosedRange<Int>) -> Substring {
         get {
             return self[index(at: value.lowerBound)...index(at: value.upperBound)]

@@ -7,7 +7,7 @@
 //
 
 struct MovieDetail: Decodable {
-    let id: Int
+    let id: Int?
     let title: String?
     let original_title: String?
     let vote_average: Double?
@@ -29,21 +29,42 @@ struct MovieDetail: Decodable {
     let tagline: String?
 }
 
-extension MovieDetail {
+extension MovieDetail: TmdbDetailsModel {
     func getGenres() -> String? {
-        if let genres = genres, !genres.isEmpty {
-            return genres.compactMap { $0.name }.joined(separator: ", ")
-        } else {
-            return nil
-        }
+        guard let genres = genres?.compactMap({ $0.name }).prefix(5), !genres.isEmpty else { return nil }
+        return genres.joined(separator: ", ")
     }
     
-    func runtimeToString() -> String? {
-        if let duration = runtime {
-            let minutes = duration % 60;
-            let hours = duration / 60
-            return "\(hours)hr \(minutes)min"
+    func getPosterPathUrlString() -> String? {
+        guard let posterPath = poster_path else { return nil }
+        return TmdbAPI.posterPath + posterPath
+    }
+    
+    func getTitle() -> String? {
+        return title
+    }
+    
+    func getSubtitle() -> String? {
+        return original_title
+    }
+    
+    func getDescription() -> String? {
+        var string = ""
+        if let productionCompanies = production_companies?.compactMap({ $0.name }), !productionCompanies.isEmpty {
+            string += productionCompanies.joined(separator: ", ")
         }
-        return nil
+        return string.isEmpty ? nil : string
+    }
+    
+    func getDate() -> String? {
+        return release_date
+    }
+    
+    func getOverview() -> String? {
+        return overview
+    }
+    
+    func getModelType() -> TmdbModelType {
+        return .movie
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class HorizontalListItemsTVCell: UITableViewCell, ReusableView {
     
-    let viewController = HorizontalListItemsViewController.init(collectionViewLayout: HorizontalCVLayout())
+    let viewController = HorizontalListItemsViewController(collectionViewLayout: HorizontalCVLayout())
     
     func set(models: [TmdbModel]) {
         viewController.set(models: models)
@@ -38,7 +38,7 @@ class HorizontalListItemsTVCell: UITableViewCell, ReusableView {
     }
     
     static func getCellHeight() -> CGFloat {
-        return (screenSize.width - 32) * 9 / 22 + 32 + 12 + 36
+        return (screenSize.width - 32) * 9 / 22 + 32 + 4 + 28
     }
     
     static func getCellWidth() -> CGFloat {

@@ -9,4 +9,5 @@
 protocol MainPageRouterInput: class {
     func routeToListPage(listType: TmdbPageableListType)
     func routeToSearchPage(query: String)
+    func routeToDetailPage(model: TmdbModel)
 }

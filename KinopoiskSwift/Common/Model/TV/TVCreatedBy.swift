@@ -1,18 +1,15 @@
 //
-//  Cast.swift
+//  TVCreatedBy.swift
 //  KinopoiskSwift
 //
-//  Created by Аскар on 5/19/19.
+//  Created by Аскар on 8/4/19.
 //  Copyright © 2019 askar.ulubayev. All rights reserved.
 //
 
-struct Cast: Codable {
+struct TVCreatedBy: Decodable {
     let id: Int?
-    let cast_id: Int?
-    let character: String?
     let credit_id: String?
-    let gender: Int?
     let name: String?
-    let order: Int?
+    let gender: Int?
     let profile_path: String?
 }

@@ -74,10 +74,10 @@ extension ListItemsViewController {
 extension ListItemsViewController {
     private func stylizeViews() {
         tableView.register(ListItemTVCell.self)
-        tableView.backgroundColor = AppColor.lightGray.uiColor
+        tableView.backgroundColor = AppColor.whitish.uiColor
         tableView.separatorStyle = .none
         tableView.tableFooterView = footerView
-        tableView.contentInset.top = 6
+        tableView.contentInset.bottom = 10
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
     }

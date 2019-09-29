@@ -59,6 +59,9 @@ extension SearchResultViewController {
             let cell: ShowAllItemsTVCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
             cell.set(title: type.title + " (" + totalResult.description + ")")
             return cell
+        case .spacer:
+            let cell: SpacerTVCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+            return cell
         }
     }
     
@@ -67,9 +70,11 @@ extension SearchResultViewController {
         let component = headerComponents[indexPath.section].components[indexPath.row]
         switch component {
         case .component(let model):
-            print(model.id as Any)
+            router?.routeToDetailPage(model: model)
         case .allResult(let type, _):
             router?.routeToListPage(modelType: type)
+        case .spacer:
+            break
         }
     }
 }
@@ -79,7 +84,8 @@ extension SearchResultViewController {
         tableView.register(ListItemTVCell.self)
         tableView.register(ShowAllItemsTVCell.self)
         tableView.register(SectionHeaderView.self)
-        tableView.backgroundColor = AppColor.lightGray.uiColor
+        tableView.register(SpacerTVCell.self)
+        tableView.backgroundColor = AppColor.whitish.uiColor
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         tableView.estimatedRowHeight = 100

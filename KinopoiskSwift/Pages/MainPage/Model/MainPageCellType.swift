@@ -11,4 +11,5 @@ import UIKit
 enum MainPageCellType {
     case showAllItems(listType: TmdbPageableListType)
     case horizontalListItems(models: [TmdbModel])
+    case showAllItemsWithBigTitle(listType: TmdbPageableListType)
 }

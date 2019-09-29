@@ -35,28 +35,15 @@ class SearchResultRouter {
 
 extension SearchResultRouter: SearchResultRouterInput {
     func routeToListPage(modelType: TmdbModelType) {
-        switch modelType {
-        case .movie:
-            _ = ListItemsRouter<ListItemsMoviePresenter>(
-                tmdbSearchPageableListType: .searchMovie,
-                searchText: query,
-                navigationController: navigationController,
-                networkService: networkService
-            )
-        case .tv:
-            _ = ListItemsRouter<ListItemsTVPresenter>(
-                tmdbSearchPageableListType: .searchTV,
-                searchText: query,
-                navigationController: navigationController,
-                networkService: networkService
-            )
-        case .person:
-            _ = ListItemsRouter<ListItemsPersonPresenter>(
-                tmdbSearchPageableListType: .searchPerson,
-                searchText: query,
-                navigationController: navigationController,
-                networkService: networkService
-            )
-        }
+        let _ = ListItemsRouter(
+            tmdbSearchPageableListType: modelType.searchType,
+            searchText: query,
+            navigationController: navigationController,
+            networkService: networkService
+        )
+    }
+    
+    func routeToDetailPage(model: TmdbModel) {
+        _ = ItemDetailsRouter(model: model, navigationController: navigationController, networkService: networkService)
     }
 }

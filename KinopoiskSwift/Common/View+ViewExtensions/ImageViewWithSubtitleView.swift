@@ -13,7 +13,6 @@ class ImageViewWithSubtitleView: UIView {
     let verticalStackView = UIStackView()
     let imageView = UIImageView()
     let subtitleLabel = UILabel()
-    let bottomSeperatorView = UIView()
     
     var image: UIImage? {
         didSet {

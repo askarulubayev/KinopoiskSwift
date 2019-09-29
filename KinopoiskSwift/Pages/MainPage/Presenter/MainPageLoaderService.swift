@@ -31,11 +31,10 @@ class MainPageLoaderService: GenreLoaderServiceProtocol {
             self.loadGenres { result in
                 switch result {
                 case .success:
-                    print("ok")
+                    semaphore.signal()
                 case .error(let error):
                     perform(.error(error))
                 }
-                semaphore.signal()
             }
         }
         

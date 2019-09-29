@@ -13,8 +13,8 @@ class MainPageViewController: BaseTableViewController {
     var router: MainPageRouterInput?
     var presenter: MainPagePresenter?
     
-    lazy var searchController = UISearchController(searchResultsController: searchResultsController)
-    let searchResultsController = SearchPromptsResultViewController(
+    private lazy var searchController = SearchController(searchResultsController: searchResultsController)
+    private let searchResultsController = SearchPromptsResultViewController(
         cellIdentier: String(describing: SearchPromptResultTVCell.self),
         cellClass: SearchPromptResultTVCell.self
     )
@@ -31,6 +31,19 @@ class MainPageViewController: BaseTableViewController {
         super.viewDidLoad()
         presenter?.loadMainPage()
         stylizeViews()
+    }
+}
+
+extension MainPageViewController {
+    @objc private func refreshTableView() {
+        refreshControl?.beginRefreshing()
+        presenter?.refreshMainPage()
+    }
+    
+    @objc private func searchButtonTapped() {
+        present(searchController, animated: true) {
+            self.searchController.searchBar.becomeFirstResponder()
+        }
     }
 }
 
@@ -54,25 +67,6 @@ extension MainPageViewController: MainPageViewInput {
     }
 }
 
-extension MainPageViewController {
-    @objc private func refreshTableView() {
-        refreshControl?.beginRefreshing()
-        presenter?.refreshMainPage()
-    }
-    
-    @objc private func searchButtonTapped() {
-        navigationItem.searchController = searchController
-        searchController.isActive = true
-        searchController.searchBar.becomeFirstResponder()
-    }
-}
-
-extension MainPageViewController: UISearchControllerDelegate {
-    func willDismissSearchController(_ searchController: UISearchController) {
-        navigationItem.searchController = nil
-    }
-}
-
 extension MainPageViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard !searchText.isEmpty else { return }
@@ -91,8 +85,18 @@ extension MainPageViewController: SearchPromptsResultViewDelegate {
     func searchPromptsResultView(
         _ searchPromptsResultView: SearchPromptsResultViewController,
         tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        router?.routeToDetailPage(model: searchResult[indexPath.row])
+    }
+    
+    func searchPromptsResultView(
+        _ searchPromptsResultView: SearchPromptsResultViewController,
+        tableView: UITableView,
         heightForRowAt indexPath: IndexPath
     ) -> CGFloat {
+        
         return 57
     }
 }
@@ -103,6 +107,7 @@ extension MainPageViewController: SearchPromptsResultViewDataSource {
         tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
+        
         return searchResult.count
     }
     
@@ -111,7 +116,12 @@ extension MainPageViewController: SearchPromptsResultViewDataSource {
         tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchPromptResultTVCell.self), for: indexPath) as! SearchPromptResultTVCell
+        
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: SearchPromptResultTVCell.self),
+            for: indexPath
+        ) as! SearchPromptResultTVCell
+        
         cell.set(model: searchResult[indexPath.row])
         return cell
     }
@@ -129,9 +139,20 @@ extension MainPageViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let component = headerComponents[indexPath.section].components[indexPath.row]
         switch component {
-        case .showAllItems(let type):
+        case .showAllItemsWithBigTitle(let type), .showAllItems(let type):
             let cell: ShowAllItemsTVCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
             cell.set(title: type.title)
+            switch component {
+            case .showAllItemsWithBigTitle:
+                cell.makeBigTitle()
+                cell.hideSeparatorView()
+                cell.selectionStyle = .none
+            default:
+                cell.makeSmallTitle()
+                let isLastElement = indexPath.row == headerComponents[indexPath.section].components.count - 1
+                isLastElement ? cell.hideSeparatorView() : cell.showSeparatorView()
+                cell.selectionStyle = .default
+            }
             return cell
         case .horizontalListItems(let models):
             let cell: HorizontalListItemsTVCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
@@ -159,6 +180,8 @@ extension MainPageViewController {
             break
         case .showAllItems(let listType):
             router?.routeToListPage(listType: listType)
+        case .showAllItemsWithBigTitle(let listType):
+            router?.routeToListPage(listType: listType)
         }
     }
 }
@@ -168,25 +191,28 @@ extension MainPageViewController {
         title = "ColdFilm"
         definesPresentationContext = true
         
-        searchController.isActive = false
-        searchController.delegate = self
         searchController.searchBar.delegate = self
+        searchController.definesPresentationContext = true
+        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.setValue("Отмена", forKey: "cancelButtonText")
+        UISearchBar.appearance().tintColor = AppColor.darkGray.uiColor
         
         searchResultsController.delegate = self
         searchResultsController.dataSource = self
         
         navigationItem.searchController = nil
         
-        tableView.tableHeaderView = headerView
         addChild(headerView.headerViewController)
+        tableView.tableHeaderView = headerView
         tableView.register(SectionHeaderView.self)
         tableView.register(HorizontalListItemsTVCell.self)
         tableView.register(ShowAllItemsTVCell.self)
-        tableView.backgroundColor = AppColor.lightGray.uiColor
+        tableView.backgroundColor = AppColor.whitish.uiColor
         tableView.contentInset.bottom = 24
         tableView.separatorInset = .zero
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
         
         headerView.isHidden = true
         

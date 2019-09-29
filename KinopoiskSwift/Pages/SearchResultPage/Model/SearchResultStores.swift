@@ -1,5 +1,5 @@
 //
-//  SearchResultStore.swift
+//  SearchResultBuilder.swift
 //  KinopoiskSwift
 //
 //  Created by Аскар on 6/21/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SearchResultStore {
+struct SearchResultBuilder {
     private var movies = [Movie]()
     private var tvs = [TVShow]()
     private var persons = [Person]()
@@ -32,7 +32,7 @@ struct SearchResultStore {
         self.personsTotalResult = totalResult
     }
     
-    func convertToHeaderComponents() -> [SearchResultHeaderComponent] {
+    func buildHeaderComponents() -> [SearchResultHeaderComponent] {
         var headerComponents = [SearchResultHeaderComponent]()
         
         if let movieHeaderComponent = getMoviesHeaderComponents() {
@@ -49,7 +49,7 @@ struct SearchResultStore {
     }
 }
 
-extension SearchResultStore {
+extension SearchResultBuilder {
     private func getMoviesHeaderComponents() -> SearchResultHeaderComponent? {
         guard !movies.isEmpty else { return nil }
         var moviesComponents = [SearchResultComponentType]()
@@ -57,6 +57,7 @@ extension SearchResultStore {
             moviesComponents.append(.component(model: movie))
         }
         if moviesTotalResult > 3 {
+            moviesComponents.append(.spacer)
             moviesComponents.append(.allResult(type: .movie, totalResult: moviesTotalResult))
         }
         
@@ -73,6 +74,7 @@ extension SearchResultStore {
             tvsComponetns.append(.component(model: tv))
         }
         if tvsTotalResult > 3 {
+            tvsComponetns.append(.spacer)
             tvsComponetns.append(.allResult(type: .tv, totalResult: tvsTotalResult))
         }
         
@@ -89,6 +91,7 @@ extension SearchResultStore {
             personsComponents.append(.component(model: person))
         }
         if personsTotalResult > 3 {
+            personsComponents.append(.spacer)
             personsComponents.append(.allResult(type: .person, totalResult: personsTotalResult))
         }
         

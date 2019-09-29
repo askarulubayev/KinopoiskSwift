@@ -10,6 +10,8 @@ import Foundation
 
 protocol ListItemsPresenterProtocol: class, ListItemsPresenterInput {
     
+    associatedtype ItemModelType: TmdbModel
+    
     var view: ListItemsViewInput { get }
     var tmdbPageableListType: TmdbPageableListType? { get }
     var tmdbSearchPageableListType: TmdbSearchPageableListType? { get }
@@ -31,24 +33,27 @@ extension ListItemsPresenterProtocol {
         }
     }
     
-    func loadItems<T: TmdbModel>(page: Int, type: T.Type) {
-        guard let listType = tmdbPageableListType else { return }
-        let networkContext = listType.getNetworkContext(page: page)
-        loadDecodableList(networkContext: networkContext, type: type)
+    func loadItems(page: Int) {
+        if let listType = tmdbPageableListType {
+            let networkContext = listType.getNetworkContext(page: page)
+            loadDecodableList(networkContext: networkContext)
+        } else {
+            searchItems(page: page)
+        }
     }
     
-    func searchItems<T: TmdbModel>(page: Int, type: T.Type) {
+    func searchItems(page: Int) {
         guard let listType = tmdbSearchPageableListType, let searchText = searchText else { return }
         let networkContext = listType.getNetworkContext(query: searchText, page: page)
-        loadDecodableList(networkContext: networkContext, type: type)
+        loadDecodableList(networkContext: networkContext)
     }
 }
 
 extension ListItemsPresenterProtocol {
-    private func loadDecodableList<T: TmdbModel>(networkContext: NetworkContext, type: T.Type) {
+    private func loadDecodableList(networkContext: NetworkContext) {
         networkService.loadDecodable(
             context: networkContext,
-            type: TmdbResult<T>.self
+            type: TmdbResult<ItemModelType>.self
         ) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {

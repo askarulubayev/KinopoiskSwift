@@ -8,6 +8,8 @@
 
 class ListItemsPersonPresenter: ListItemsPresenterProtocol {
     
+    typealias ItemModelType = Person
+    
     private weak var itemsView: ListItemsViewInput!
     
     var view: ListItemsViewInput {
@@ -30,13 +32,5 @@ class ListItemsPersonPresenter: ListItemsPresenterProtocol {
         self.tmdbSearchPageableListType = tmdbSearchPageableListType
         self.searchText = searchText
         self.networkService = networkService
-    }
-    
-    func loadItems(page: Int) {
-        if tmdbPageableListType != nil {
-            loadItems(page: page, type: Person.self)
-        } else if tmdbSearchPageableListType != nil {
-            searchItems(page: page, type: Person.self)
-        }
     }
 }

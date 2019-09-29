@@ -10,10 +10,10 @@ import UIKit
 
 class SearchPromptResultTVCell: UITableViewCell, ReusableView {
     
-    let resultImageView = CachedImageView()
-    let verticalStackView = UIStackView()
-    let titleLabel = UILabel()
-    let subtitleLabel = UILabel()
+    private let resultImageView = CachedImageView()
+    private let verticalStackView = UIStackView()
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

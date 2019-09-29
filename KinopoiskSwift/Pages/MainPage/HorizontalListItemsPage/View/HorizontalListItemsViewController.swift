@@ -35,12 +35,19 @@ class HorizontalListItemsViewController: BaseCollectionViewController, UICollect
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: HorizontalListItemsTVCell.getCellWidth(), height: HorizontalListItemsTVCell.getCellHeight())
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard let navigationController = navigationController as? NavigationController else { return }
+        let _ = ItemDetailsRouter(model: models[indexPath.row], navigationController: navigationController, networkService: NetworkAdapter())
+    }
 }
 
 extension HorizontalListItemsViewController {
     private func  stylizeViews() {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(cell: HorizontalListItemCVCell.self)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     }
 }

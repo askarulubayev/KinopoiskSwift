@@ -15,7 +15,7 @@ class SearchResultPresenter {
     private let query: String
     private var headerComponents = [SearchResultHeaderComponent]()
     private let searchLoaderService: SearchLoaderService
-    private var searchResultStore = SearchResultStore()
+    private var searchResultStore = SearchResultBuilder()
     
     init(view: SearchResultViewInput, networkService: NetworkService, query: String) {
         self.view = view
@@ -39,7 +39,7 @@ class SearchResultPresenter {
                         return
                     }
                 }
-                strongSelf.headerComponents = strongSelf.searchResultStore.convertToHeaderComponents()
+                strongSelf.headerComponents = strongSelf.searchResultStore.buildHeaderComponents()
                 perform(.success(()))
             }
         }

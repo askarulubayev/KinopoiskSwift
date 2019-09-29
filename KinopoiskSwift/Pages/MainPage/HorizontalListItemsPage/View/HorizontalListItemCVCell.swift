@@ -44,7 +44,7 @@ extension HorizontalListItemCVCell: ViewInstallationProtocol {
             top: topAnchor,
             left: leftAnchor,
             right: rightAnchor,
-            topConstant: 12,
+            topConstant: 4,
             leftConstant: 4,
             rightConstant: 4
         )
