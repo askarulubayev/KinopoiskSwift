@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 import SkeletonView
+import Fabric
+import Crashlytics
 
 let screenSize = UIScreen.main.bounds.size
 
@@ -21,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         setupDefaults()
+        
+        Fabric.with([Crashlytics.self])
         
         window = UIWindow()
         window?.makeKeyAndVisible()
