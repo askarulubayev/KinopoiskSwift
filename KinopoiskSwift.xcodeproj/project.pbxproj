@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -178,7 +178,7 @@
 		7BFBE8422299530500043EC3 /* PopularTVsNetworkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBE8412299530500043EC3 /* PopularTVsNetworkContext.swift */; };
 		7BFBE8442299533000043EC3 /* TopRatedTVsNetworkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBE8432299533000043EC3 /* TopRatedTVsNetworkContext.swift */; };
 		7BFBE846229962B200043EC3 /* MainPageLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBE845229962B200043EC3 /* MainPageLoaderService.swift */; };
-		7BFBE848229963E900043EC3 /* MainPageComponentsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBE847229963E900043EC3 /* MainPageComponentsStore.swift */; };
+		7BFBE848229963E900043EC3 /* MainPageComponentsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBE847229963E900043EC3 /* MainPageComponentsBuilder.swift */; };
 		7BFBE84B22996F0600043EC3 /* PopularPersonsNetworkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBE84A22996F0600043EC3 /* PopularPersonsNetworkContext.swift */; };
 		7BFBE84D22996F5F00043EC3 /* PersonLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBE84C22996F5F00043EC3 /* PersonLoaderService.swift */; };
 		7BFBE84F229985C900043EC3 /* TmdbPageableListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFBE84E229985C900043EC3 /* TmdbPageableListType.swift */; };
@@ -393,7 +393,7 @@
 		7BFBE8412299530500043EC3 /* PopularTVsNetworkContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTVsNetworkContext.swift; sourceTree = "<group>"; };
 		7BFBE8432299533000043EC3 /* TopRatedTVsNetworkContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedTVsNetworkContext.swift; sourceTree = "<group>"; };
 		7BFBE845229962B200043EC3 /* MainPageLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageLoaderService.swift; sourceTree = "<group>"; };
-		7BFBE847229963E900043EC3 /* MainPageComponentsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageComponentsStore.swift; sourceTree = "<group>"; };
+		7BFBE847229963E900043EC3 /* MainPageComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageComponentsBuilder.swift; sourceTree = "<group>"; };
 		7BFBE84A22996F0600043EC3 /* PopularPersonsNetworkContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularPersonsNetworkContext.swift; sourceTree = "<group>"; };
 		7BFBE84C22996F5F00043EC3 /* PersonLoaderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonLoaderService.swift; sourceTree = "<group>"; };
 		7BFBE84E229985C900043EC3 /* TmdbPageableListType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbPageableListType.swift; sourceTree = "<group>"; };
@@ -550,7 +550,7 @@
 				7B7874AE22BFBC3E00084567 /* GenresStore.swift */,
 				7B7874A622BF998D00084567 /* MovieGenresStore.swift */,
 				7B7874AC22BFBC0C00084567 /* TVGenreStore.swift */,
-				7BFBE847229963E900043EC3 /* MainPageComponentsStore.swift */,
+				7BFBE847229963E900043EC3 /* MainPageComponentsBuilder.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1353,16 +1353,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KinopoiskSwift/Pods-KinopoiskSwift-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-KinopoiskSwift/Pods-KinopoiskSwift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-KinopoiskSwift/Pods-KinopoiskSwift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1484,7 +1479,7 @@
 				7B79BB3022F720AF00AF8ACD /* ItemDetailsImagesTVCell.swift in Sources */,
 				7BA06D4E22917C7700EAA8F6 /* SMVideos.swift in Sources */,
 				7B79BB1B22F6A42700AF8ACD /* ItemDetailsTVPresenter.swift in Sources */,
-				7BFBE848229963E900043EC3 /* MainPageComponentsStore.swift in Sources */,
+				7BFBE848229963E900043EC3 /* MainPageComponentsBuilder.swift in Sources */,
 				7BA06D56229188EC00EAA8F6 /* TVShow.swift in Sources */,
 				7BA06D052291578400EAA8F6 /* ListItemsViewController.swift in Sources */,
 				7BFBE851229988C600043EC3 /* TmdbModelType.swift in Sources */,

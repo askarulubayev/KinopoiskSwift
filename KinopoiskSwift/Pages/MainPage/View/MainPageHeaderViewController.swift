@@ -10,12 +10,13 @@ import UIKit
 
 class MainPageHeaderViewController: BaseViewController {
     
-    let verticalStackView = UIStackView()
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HorizontalCVLayout())
-    let pageControl = PageControl()
-    let typesView = MainPageHeaderTypesView()
+    private let verticalStackView = UIStackView()
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HorizontalCVLayout())
+    private let pageControl = PageControl()
+    private let typesView = MainPageHeaderTypesView()
     
-    var movies = [Movie]()
+    private var isLoading = true
+    private var movies = [Movie]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,16 +29,30 @@ class MainPageHeaderViewController: BaseViewController {
         pageControl.layoutIfNeeded()
         collectionView.reloadData()
     }
+    
+    func showLoadingState() {
+        isLoading = true
+        typesView.showLoadingState()
+        collectionView.reloadData()
+    }
+    
+    func hideLoadingState() {
+        isLoading = false
+        typesView.hideLoadingState()
+    }
 }
 
 extension MainPageHeaderViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.count
+        return isLoading ? 10 : movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UpcomingMovieCVCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.set(movie: movies[indexPath.row])
+        isLoading ? cell.showLoadingState() : cell.hideLoadingState()
+        if !isLoading {
+            cell.set(movie: movies[indexPath.row])
+        }
         return cell
     }
 }

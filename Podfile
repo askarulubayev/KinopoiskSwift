@@ -7,6 +7,7 @@ target 'KinopoiskSwift' do
 
   # Pods for KinopoiskSwift
   pod 'Alamofire', '~> 4.7'
+  pod 'SkeletonView', '~> 1.7'
 
   target 'KinopoiskSwiftTests' do
     inherit! :search_paths

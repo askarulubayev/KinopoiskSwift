@@ -1,18 +1,26 @@
 //
-//  MainPageStores.swift
+//  MainPageComponentsBuilder.swift
 //  KinopoiskSwift
 //
 //  Created by Аскар on 5/25/19.
 //  Copyright © 2019 askar.ulubayev. All rights reserved.
 //
 
-class MainPageComponentsStore {
+class MainPageComponentsBuilder {
     var upcomingMovies = [Movie]()
     var nowPlayingMovies = [Movie]()
     var airingTodayTVShows = [TVShow]()
     var popularPersons = [Person]()
     
     private var headerComponents = [MainPageHeaderComponent]()
+    
+    func getSkeletonComponents() -> [MainPageHeaderComponent] {
+        headerComponents.removeAll()
+        headerComponents.append(getSkeletonComponent())
+        headerComponents.append(getSkeletonComponent())
+        headerComponents.append(getSkeletonComponent())
+        return headerComponents
+    }
     
     func convertToHeaderComponents() -> [MainPageHeaderComponent] {
         headerComponents.removeAll()
@@ -54,6 +62,19 @@ class MainPageComponentsStore {
             components: [
                 .showAllItemsWithBigTitle(listType: TmdbPageableListType.popularPersons),
                 .horizontalListItems(models: popularPersons)
+            ]
+        )
+    }
+    
+    private func getSkeletonComponent() -> MainPageHeaderComponent {
+        return MainPageHeaderComponent(
+            sectionTitle: "",
+            components: [
+                .showAllItemsSkeleton,
+                .horizontalListItemsSkeleton,
+                .showAllItemsSkeleton,
+                .showAllItemsSkeleton,
+                .showAllItemsSkeleton
             ]
         )
     }

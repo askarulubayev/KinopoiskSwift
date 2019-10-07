@@ -16,9 +16,9 @@ class MainPagePresenter {
     
     private lazy var loaderService = MainPageLoaderService(
         networkService: networkService,
-        mainPageComponentsStore: mainPageComponentsStore
+        mainPageComponentsBuilder: mainPageComponentsBuilder
     )
-    private let mainPageComponentsStore = MainPageComponentsStore()
+    private let mainPageComponentsBuilder = MainPageComponentsBuilder()
     
     init(view: MainPageViewInput) {
         self.view = view
@@ -27,6 +27,7 @@ class MainPagePresenter {
 
 extension MainPagePresenter: MainPagePresenterInput {
     func loadMainPage() {
+        view.set(headerComponents: mainPageComponentsBuilder.getSkeletonComponents())
         loadAllData(isActivityIndicatorVisible: true)
     }
     
@@ -48,24 +49,20 @@ extension MainPagePresenter: MainPagePresenterInput {
     }
     
     private func loadAllData(isActivityIndicatorVisible: Bool) {
-        
-        if isActivityIndicatorVisible { view.showActivityIndicator() }
         loaderService.loadMainPage { [weak self] result in
             guard let strongSelf = self else { return }
-            if isActivityIndicatorVisible { strongSelf.view.hideActivityIndicator() }
             switch result {
-            case .success: break
+            case .success:
+                let upcomingMovies = strongSelf.mainPageComponentsBuilder.upcomingMovies
+                let headerComponents = strongSelf.mainPageComponentsBuilder.convertToHeaderComponents()
+                if !upcomingMovies.isEmpty && !headerComponents.isEmpty {
+                    strongSelf.view.set(upcomingMovies: upcomingMovies)
+                    strongSelf.view.set(headerComponents: headerComponents)
+                } else {
+                    strongSelf.view.showError(message: NetworkError.unknown.description)
+                }
             case .error(let error):
                 strongSelf.view.showError(message: error.description)
-                return
-            }
-            let upcomingMovies = strongSelf.mainPageComponentsStore.upcomingMovies
-            let headerComponents = strongSelf.mainPageComponentsStore.convertToHeaderComponents()
-            if !upcomingMovies.isEmpty && !headerComponents.isEmpty {
-                strongSelf.view.set(upcomingMovies: upcomingMovies)
-                strongSelf.view.set(headerComponents: headerComponents)
-            } else {
-                strongSelf.view.showError(message: NetworkError.unknown.description)
             }
         }
     }

@@ -10,6 +10,8 @@ import UIKit
 
 class MainPageHeaderTypesView: UIView {
     
+    private static let typesLoadingTitle = "Long Title"
+    
     private let topSeparatorView = UIView()
     private let horizontalStackView = UIStackView()
     private let moviesPersonsSeperatorView = UIView()
@@ -26,6 +28,42 @@ class MainPageHeaderTypesView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func showLoadingState() {
+        setLoadingValues()
+        moviesView.showLoadingState()
+        personsView.showLoadingState()
+        tvShowsView.showLoadingState()
+    }
+    
+    func hideLoadingState() {
+        moviesView.hideLoadingState()
+        personsView.hideLoadingState()
+        tvShowsView.hideLoadingState()
+        setDefaultValues()
+    }
+    
+    private func setLoadingValues() {
+        moviesView.image = nil
+        moviesView.text = MainPageHeaderTypesView.typesLoadingTitle
+        
+        personsView.image = nil
+        personsView.text = MainPageHeaderTypesView.typesLoadingTitle
+        
+        tvShowsView.image = nil
+        tvShowsView.text = MainPageHeaderTypesView.typesLoadingTitle
+    }
+    
+    private func setDefaultValues() {
+        moviesView.image = AppImage.films.uiImage
+        moviesView.text = TmdbModelType.movie.title
+        
+        personsView.image = AppImage.actors.uiImage
+        personsView.text = TmdbModelType.person.title
+        
+        tvShowsView.image = AppImage.tvShows.uiImage
+        tvShowsView.text = TmdbModelType.tv.title
     }
 }
 
@@ -65,15 +103,6 @@ extension MainPageHeaderTypesView: ViewInstallationProtocol {
         moviesPersonsSeperatorView.backgroundColor = AppColor.lightGray.uiColor
         
         personsTvShowsSeperatorView.backgroundColor = AppColor.lightGray.uiColor
-        
-        moviesView.image = AppImage.films.uiImage
-        moviesView.text = TmdbModelType.movie.title
-        
-        personsView.image = AppImage.actors.uiImage
-        personsView.text = TmdbModelType.person.title
-        
-        tvShowsView.image = AppImage.tvShows.uiImage
-        tvShowsView.text = TmdbModelType.tv.title
         
         bottomSeparatorView.backgroundColor = AppColor.lightGray.uiColor
     }

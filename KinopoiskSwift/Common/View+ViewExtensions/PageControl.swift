@@ -62,8 +62,6 @@ class PageControl: UIView {
     }
     
     private func setViewConstraints() {
-        heightAnchor.constraint(equalToConstant: constantHeight)
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         let layoutConstraints = [
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),

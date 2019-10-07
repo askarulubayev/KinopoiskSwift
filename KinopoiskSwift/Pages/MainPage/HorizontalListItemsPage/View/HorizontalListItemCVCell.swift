@@ -10,6 +10,9 @@ import UIKit
 
 class HorizontalListItemCVCell: UICollectionViewCell, ReusableView {
     
+    private static let loadingTitle = "Loading title"
+    
+    private let containerView = UIView()
     private let verticalStackView = UIStackView()
     private let imageView = CachedImageView()
     private let titleLabel = UILabel()
@@ -28,6 +31,14 @@ class HorizontalListItemCVCell: UICollectionViewCell, ReusableView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func hideLoadingState() {
+        verticalStackView.hideSkeleton()
+    }
+    
+    func showLoadingState() {
+        verticalStackView.showAnimatedSkeleton()
     }
 }
 
@@ -55,17 +66,22 @@ extension HorizontalListItemCVCell: ViewInstallationProtocol {
     }
     
     func stylizeViews() {
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        
         verticalStackView.distribution = .fill
         verticalStackView.axis = .vertical
         verticalStackView.spacing = 6
         
+        imageView.isSkeletonable = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        
+        titleLabel.text = HorizontalListItemCVCell.loadingTitle
+        titleLabel.isSkeletonable = true
         titleLabel.numberOfLines = 2
         titleLabel.textColor = .black
         titleLabel.font =  UIFont.systemFont(ofSize: 12, weight: .medium)
         
+        subtitleLabel.text = HorizontalListItemCVCell.loadingTitle
+        subtitleLabel.isSkeletonable = true
         subtitleLabel.textColor = .gray
         subtitleLabel.font = UIFont.systemFont(ofSize: 10)
     }

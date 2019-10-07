@@ -10,6 +10,7 @@ import UIKit
 
 class UpcomingMovieCVCell: UICollectionViewCell, ReusableView {
     
+    private let containerView = UIView()
     private let posterImageView = CachedImageView()
     private let backdropImageView = CachedImageView()
     private let darkCoverView = UIView()
@@ -32,14 +33,25 @@ class UpcomingMovieCVCell: UICollectionViewCell, ReusableView {
         titleLabel.text = movie.getTitle()
         subtitleLabel.text = movie.getOriginalNameWithReleaseDate()
     }
+    
+    func showLoadingState() {
+        darkCoverView.isHidden = true
+        containerView.showAnimatedSkeleton()
+    }
+    
+    func hideLoadingState() {
+        darkCoverView.isHidden = false
+        containerView.hideSkeleton()
+    }
 }
 
 extension UpcomingMovieCVCell: ViewInstallationProtocol {
     func addSubviews() {
-        addSubview(posterImageView)
-        addSubview(backdropImageView)
-        addSubview(darkCoverView)
-        addSubview(verticalStackView)
+        addSubview(containerView)
+        containerView.addSubview(posterImageView)
+        containerView.addSubview(backdropImageView)
+        containerView.addSubview(darkCoverView)
+        containerView.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(titleLabel)
         verticalStackView.addArrangedSubview(subtitleLabel)
     }
@@ -81,9 +93,11 @@ extension UpcomingMovieCVCell: ViewInstallationProtocol {
     }
     
     func stylizeViews() {
+        posterImageView.isSkeletonable = true
         posterImageView.backgroundColor = .lightGray
         
         backdropImageView.backgroundColor = .lightGray
+        backdropImageView.isSkeletonable = true
         
         darkCoverView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         

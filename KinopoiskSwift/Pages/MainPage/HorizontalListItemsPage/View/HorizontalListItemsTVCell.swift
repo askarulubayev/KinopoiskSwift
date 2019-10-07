@@ -16,6 +16,14 @@ class HorizontalListItemsTVCell: UITableViewCell, ReusableView {
         viewController.set(models: models)
     }
     
+    func hideLoadingState() {
+        viewController.hideLoadingState()
+    }
+    
+    func showLoadingState() {
+        viewController.showLoadingState()
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

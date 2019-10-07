@@ -42,6 +42,14 @@ class ImageViewWithSubtitleView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func showLoadingState() {
+        verticalStackView.showAnimatedSkeleton()
+    }
+    
+    func hideLoadingState() {
+        verticalStackView.hideSkeleton()
+    }
 }
 
 extension ImageViewWithSubtitleView {
@@ -77,12 +85,18 @@ extension ImageViewWithSubtitleView: ViewInstallationProtocol {
     
     func stylizeViews() {
         backgroundColor = .white
+        isSkeletonable = false
         
+        verticalStackView.isSkeletonable = false
         verticalStackView.axis = .vertical
         verticalStackView.spacing = stackViewSpacing
+        verticalStackView.distribution = .fill
+        verticalStackView.alignment = .center
         
+        imageView.isSkeletonable = true
         imageView.contentMode = .scaleAspectFit
         
+        subtitleLabel.isSkeletonable = true
         subtitleLabel.textColor = AppColor.darkGray.uiColor
         subtitleLabel.font = UIFont.systemFont(ofSize: 12)
         subtitleLabel.textAlignment = .center

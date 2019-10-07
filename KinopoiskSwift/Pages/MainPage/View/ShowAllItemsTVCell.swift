@@ -10,6 +10,9 @@ import UIKit
 
 class ShowAllItemsTVCell: UITableViewCell, ReusableView {
     
+    private static let textForSkeeleton = "Ошибка при загрузке"
+    
+    private let containerView = UIView()
     private let titleLabel = UILabel()
     private let allLabel = UILabel()
     private let arrowRightImageView = UIImageView()
@@ -43,14 +46,27 @@ class ShowAllItemsTVCell: UITableViewCell, ReusableView {
     func hideSeparatorView() {
         separatorView.isHidden = true
     }
+    
+    func showLoadingState() {
+        titleLabel.text = ShowAllItemsTVCell.textForSkeeleton
+        containerView.showAnimatedSkeleton()
+    }
+    
+    func hideLoadingState() {
+        if titleLabel.text == ShowAllItemsTVCell.textForSkeeleton {
+            titleLabel.text = nil
+        }
+        containerView.hideSkeleton()
+    }
 }
 
 extension ShowAllItemsTVCell: ViewInstallationProtocol {
     func addSubviews() {
-        addSubview(titleLabel)
-        addSubview(allLabel)
-        addSubview(arrowRightImageView)
-        addSubview(separatorView)
+        addSubview(containerView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(allLabel)
+        containerView.addSubview(arrowRightImageView)
+        containerView.addSubview(separatorView)
     }
     
     func setViewConstraints() {
@@ -90,6 +106,8 @@ extension ShowAllItemsTVCell: ViewInstallationProtocol {
     func stylizeViews() {
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         titleLabel.textColor = .black
+        titleLabel.isSkeletonable = true
+        titleLabel.linesCornerRadius = 2
         
         allLabel.isHidden = true
         allLabel.text = "Все"

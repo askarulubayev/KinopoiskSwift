@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class MainPageViewController: BaseTableViewController {
     
@@ -32,6 +33,11 @@ class MainPageViewController: BaseTableViewController {
         presenter?.loadMainPage()
         stylizeViews()
     }
+    
+    func showError(message: String, completion: VoidCompletion? = nil) {
+        super.showError(message: message)
+        refreshControl?.endRefreshing()
+    }
 }
 
 extension MainPageViewController {
@@ -56,7 +62,7 @@ extension MainPageViewController: MainPageViewInput {
     
     func set(upcomingMovies: [Movie]) {
         refreshControl?.endRefreshing()
-        headerView.isHidden = false
+        headerView.hideLoadingState()
         headerView.set(movies: upcomingMovies)
         tableView.reloadData()
     }
@@ -142,6 +148,7 @@ extension MainPageViewController {
         case .showAllItemsWithBigTitle(let type), .showAllItems(let type):
             let cell: ShowAllItemsTVCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
             cell.set(title: type.title)
+            cell.hideLoadingState()
             switch component {
             case .showAllItemsWithBigTitle:
                 cell.makeBigTitle()
@@ -158,6 +165,19 @@ extension MainPageViewController {
             let cell: HorizontalListItemsTVCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
             addChild(cell.viewController)
             cell.set(models: models)
+            cell.hideLoadingState()
+            return cell
+        case .showAllItemsSkeleton:
+            let cell: ShowAllItemsTVCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+            cell.showLoadingState()
+            let isLastElement = indexPath.row == headerComponents[indexPath.section].components.count - 1
+            isLastElement ? cell.hideSeparatorView() : cell.showSeparatorView()
+            cell.selectionStyle = .none
+            return cell
+        case .horizontalListItemsSkeleton:
+            let cell: HorizontalListItemsTVCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+            addChild(cell.viewController)
+            cell.showLoadingState()
             return cell
         }
     }
@@ -182,6 +202,8 @@ extension MainPageViewController {
             router?.routeToListPage(listType: listType)
         case .showAllItemsWithBigTitle(let listType):
             router?.routeToListPage(listType: listType)
+        default:
+            break
         }
     }
 }
@@ -214,7 +236,7 @@ extension MainPageViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         
-        headerView.isHidden = true
+        headerView.showLoadingState()
         
         refreshControl = UIRefreshControl()
         tableView.refreshControl = refreshControl

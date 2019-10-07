@@ -12,4 +12,6 @@ enum MainPageCellType {
     case showAllItems(listType: TmdbPageableListType)
     case horizontalListItems(models: [TmdbModel])
     case showAllItemsWithBigTitle(listType: TmdbPageableListType)
+    case showAllItemsSkeleton
+    case horizontalListItemsSkeleton
 }

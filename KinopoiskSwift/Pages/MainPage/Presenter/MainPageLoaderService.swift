@@ -16,11 +16,11 @@ class MainPageLoaderService: GenreLoaderServiceProtocol {
     private lazy var tvShowLoaderService = TVShowLoaderService(networkService: networkService)
     private lazy var personLoaderService = PersonLoaderService(networkService: networkService)
     
-    private let mainPageComponentsStore: MainPageComponentsStore
+    private let mainPageComponentsBuilder: MainPageComponentsBuilder
     
-    init(networkService: NetworkService, mainPageComponentsStore: MainPageComponentsStore) {
+    init(networkService: NetworkService, mainPageComponentsBuilder: MainPageComponentsBuilder) {
         self.networkService = networkService
-        self.mainPageComponentsStore = mainPageComponentsStore
+        self.mainPageComponentsBuilder = mainPageComponentsBuilder
     }
     
     func loadMainPage(onCompletion perform: @escaping (Result<Void>) -> Void) {
@@ -93,7 +93,7 @@ class MainPageLoaderService: GenreLoaderServiceProtocol {
             guard let strongSelf = self else { return }
             switch result {
             case .success(let movies):
-                strongSelf.mainPageComponentsStore.upcomingMovies = movies
+                strongSelf.mainPageComponentsBuilder.upcomingMovies = movies
                 completion(.success(()))
             case .error(let error):
                 completion(.error(error))
@@ -106,7 +106,7 @@ class MainPageLoaderService: GenreLoaderServiceProtocol {
             guard let strongSelf = self else { return }
             switch result {
             case .success(let movies):
-                strongSelf.mainPageComponentsStore.nowPlayingMovies = movies
+                strongSelf.mainPageComponentsBuilder.nowPlayingMovies = movies
                 completion(.success(()))
             case .error(let error):
                 completion(.error(error))
@@ -119,7 +119,7 @@ class MainPageLoaderService: GenreLoaderServiceProtocol {
             guard let strongSelf = self else { return }
             switch result {
             case .success(let tvShows):
-                strongSelf.mainPageComponentsStore.airingTodayTVShows = tvShows
+                strongSelf.mainPageComponentsBuilder.airingTodayTVShows = tvShows
                 completion(.success(()))
             case .error(let error):
                 completion(.error(error))
@@ -132,7 +132,7 @@ class MainPageLoaderService: GenreLoaderServiceProtocol {
             guard let strongSelf = self else { return }
             switch result {
             case .success(let persons):
-                strongSelf.mainPageComponentsStore.popularPersons = persons
+                strongSelf.mainPageComponentsBuilder.popularPersons = persons
                 completion(.success(()))
             case .error(let error):
                 completion(.error(error))

@@ -11,9 +11,19 @@ import UIKit
 class HorizontalListItemsViewController: BaseCollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private var models = [TmdbModel]()
+    private var isLoading = true
     
     func set(models: [TmdbModel]) {
         self.models = models
+        collectionView.reloadData()
+    }
+    
+    func hideLoadingState() {
+        isLoading = false
+    }
+    
+    func showLoadingState() {
+        isLoading = true
         collectionView.reloadData()
     }
     
@@ -23,12 +33,15 @@ class HorizontalListItemsViewController: BaseCollectionViewController, UICollect
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return models.count
+        return isLoading ? 10 : models.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: HorizontalListItemCVCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.set(model: models[indexPath.item])
+        isLoading ? cell.showLoadingState() : cell.hideLoadingState()
+        if !isLoading {
+            cell.set(model: models[indexPath.item])
+        }
         return cell
     }
     

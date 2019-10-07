@@ -24,6 +24,14 @@ class MainPageHeaderView: UIView {
     func set(movies: [Movie]) {
         headerViewController.set(movies: movies)
     }
+    
+    func showLoadingState() {
+        headerViewController.showLoadingState()
+    }
+    
+    func hideLoadingState() {
+        headerViewController.hideLoadingState()
+    }
 }
 
 extension MainPageHeaderView: ViewInstallationProtocol {

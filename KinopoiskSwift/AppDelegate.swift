@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SkeletonView
 
 let screenSize = UIScreen.main.bounds.size
 
@@ -30,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupDefaults() {
         UINavigationBar.appearance().tintColor = AppColor.darkGray.uiColor
+        SkeletonAppearance.default.tintColor = UIColor.lightGray
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
