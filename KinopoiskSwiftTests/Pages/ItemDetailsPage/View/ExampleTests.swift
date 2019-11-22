@@ -1,17 +1,14 @@
 //
-//  KinopoiskSwiftTests.swift
+//  ExampleTests.swift
 //  KinopoiskSwiftTests
 //
-//  Created by Аскар on 5/19/19.
+//  Created by Аскар on 11/20/19.
 //  Copyright © 2019 askar.ulubayev. All rights reserved.
 //
 
 import XCTest
-@testable import KinopoiskSwift
 
-class KinopoiskSwiftTests: XCTestCase {
-    
-    private let networkService: NetworkService = NetworkAdapter()
+class ExampleTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -22,7 +19,8 @@ class KinopoiskSwiftTests: XCTestCase {
     }
 
     func testExample() {
-        
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
     func testPerformanceExample() {

@@ -22,8 +22,7 @@ extension UIView {
                     self.backgroundColor = AppColor.grayClick.uiColor
                 }
             )
-        }
-        else {
+        } else {
             UIView.animate(
                 withDuration: 0.1,
                 delay: 0,

@@ -19,7 +19,5 @@ protocol BaseViewInputProtocol: class {
 }
 
 extension BaseViewInputProtocol {
-    func showError(message: String, completion: VoidCompletion? = nil) {
-        showError(message: message, completion: completion)
-    }
+    func showError(message: String, completion: VoidCompletion? = nil) {}
 }
