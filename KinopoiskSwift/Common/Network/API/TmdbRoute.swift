@@ -47,6 +47,8 @@ enum TmdbRoute {
     case searchTV
     case searchMulti
     
+    case newHeader
+    
     private func getRoute() -> String {
         switch self {
         case .getMoviesNowPlaying:
@@ -118,12 +120,20 @@ enum TmdbRoute {
             return "search/movie"
         case .searchMulti:
             return "search/multi"
+            
+        case .newHeader:
+            return "new/header"
         }
     }
 }
 
 extension TmdbRoute: URLConvertible {
     func url() -> URL? {
-        return URL(string: TmdbAPI.baseURLString + getRoute())
+        switch self {
+        case .newHeader:
+            return URL(string: "https://google.com/" + getRoute())
+        default:
+             return URL(string: TmdbAPI.baseURLString + getRoute())
+        }
     }
 }

@@ -12,10 +12,6 @@ class MainPageLoaderService: GenreLoaderServiceProtocol {
     
     let networkService: NetworkService
     
-    private lazy var movieLoaderService = MovieLoaderService(networkService: networkService)
-    private lazy var tvShowLoaderService = TVShowLoaderService(networkService: networkService)
-    private lazy var personLoaderService = PersonLoaderService(networkService: networkService)
-    
     private let mainPageComponentsBuilder: MainPageComponentsBuilder
     
     init(networkService: NetworkService, mainPageComponentsBuilder: MainPageComponentsBuilder) {
@@ -62,80 +58,57 @@ class MainPageLoaderService: GenreLoaderServiceProtocol {
         var results = [Result<Void>]()
         
         dispatchGroup.enter()
-        loadUpcomingMoviesToComponentsStore { result in
-            results.append(result)
+        loadTmdbPage(route: .getMoviesUpcoming, page: 1, type: Movie.self) { [weak self] result in
+            guard let strongSelf = self else { return }
+            strongSelf.mainPageComponentsBuilder.upcomingMovies = result.1
+            results.append(result.0)
             dispatchGroup.leave()
         }
         
         dispatchGroup.enter()
-        loadNowPlayingMoviesToComponentsStore { result in
-            results.append(result)
+        loadTmdbPage(route: .getMoviesNowPlaying, page: 1, type: Movie.self) { [weak self] result in
+            guard let strongSelf = self else { return }
+            strongSelf.mainPageComponentsBuilder.nowPlayingMovies = result.1
+            results.append(result.0)
             dispatchGroup.leave()
         }
         
         dispatchGroup.enter()
-        loadAiringTodayTVShowsToComponentsStore { result in
-            results.append(result)
+        loadTmdbPage(route: .getTVsAiringToday, page: 1, type: TVShow.self) { [weak self] result in
+            guard let strongSelf = self else { return }
+            strongSelf.mainPageComponentsBuilder.airingTodayTVShows = result.1
+            results.append(result.0)
             dispatchGroup.leave()
         }
         
         dispatchGroup.enter()
-        loadPopularPeersonsToComponentsStore { result in
-            results.append(result)
+        loadTmdbPage(route: .getPersonsPopular, page: 1, type: Person.self) { [weak self] result in
+            guard let strongSelf = self else { return }
+            strongSelf.mainPageComponentsBuilder.popularPersons = result.1
+            results.append(result.0)
             dispatchGroup.leave()
         }
         
         completion(results)
     }
     
-    private func loadUpcomingMoviesToComponentsStore(completion: @escaping (Result<Void>) -> Void) {
-        movieLoaderService.loadUpcomingMovies(page: 1) { [weak self] result in
-            guard let strongSelf = self else { return }
+    private func loadTmdbPage<T: TmdbModel>(
+        route: TmdbRoute,
+        page: Int,
+        type: T.Type,
+        completion: @escaping ((Result<Void>, [T])) -> Void
+    ) {
+        let networkContext = TestMovieNetworkContext(route: route, page: page)
+        networkService.loadDecodable(context: networkContext, type: TmdbResult<T>.self) { result in
             switch result {
-            case .success(let movies):
-                strongSelf.mainPageComponentsBuilder.upcomingMovies = movies
-                completion(.success(()))
+            case .success(let tmdbResult):
+                guard let results = tmdbResult.results else {
+                    completion((.error(NetworkError.dataLoad), []))
+                    return
+                }
+                completion((.success(()), results))
             case .error(let error):
-                completion(.error(error))
-            }
-        }
-    }
-    
-    private func loadNowPlayingMoviesToComponentsStore(completion: @escaping (Result<Void>) -> Void) {
-        movieLoaderService.loadNowPlayingMovies(page: 1) { [weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case .success(let movies):
-                strongSelf.mainPageComponentsBuilder.nowPlayingMovies = movies
-                completion(.success(()))
-            case .error(let error):
-                completion(.error(error))
-            }
-        }
-    }
-    
-    private func loadAiringTodayTVShowsToComponentsStore(completion: @escaping (Result<Void>) -> Void) {
-        tvShowLoaderService.loadAiringTodayTVShows(page: 1) { [weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case .success(let tvShows):
-                strongSelf.mainPageComponentsBuilder.airingTodayTVShows = tvShows
-                completion(.success(()))
-            case .error(let error):
-                completion(.error(error))
-            }
-        }
-    }
-    
-    private func loadPopularPeersonsToComponentsStore(completion: @escaping (Result<Void>) -> Void) {
-        personLoaderService.loadPopularPersons(page: 1) { [weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case .success(let persons):
-                strongSelf.mainPageComponentsBuilder.popularPersons = persons
-                completion(.success(()))
-            case .error(let error):
-                completion(.error(error))
+                completion((.error(error), []))
             }
         }
     }
